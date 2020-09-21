@@ -1,13 +1,3 @@
 # ocaml-2020
 
-woah
-
-guuuu
-
-hehexd
-
-blah
-
-ajuuuu
-
-loli
+uottawa csi3120 labs
