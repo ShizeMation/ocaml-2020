@@ -46,7 +46,7 @@ let even (x: int) : bool = (x mod 2) = 0
 
 (* 1g. Write odd in terms of even *)
 
-let odd (x: int) : bool = not even x
+let odd (x: int) : bool = not (even x)
 
 (* 1h. In addition to the Pervasives, OCaml comes pre-packaged with a
    standard library, that includes a lot of other utility functions that
