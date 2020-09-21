@@ -12,6 +12,7 @@ let x =
 (* 1b. Make it so that x1 equals 42.0, by casting x. *)
 (* Hint: Look in the OCaml documentation in the Pervasives chapter:
    http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html
+   https://ocaml.org/releases/4.11/htmlman/libref/Stdlib.html
    and search for "float". *)
 (* 
 let x1 = (* Your code here. *)  
