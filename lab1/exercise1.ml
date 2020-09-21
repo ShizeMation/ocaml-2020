@@ -5,56 +5,48 @@
    file using "#use".  *)
 
 (* 1a. Make it so that that x equals 42, by adding 22 to 20 *)
-(* 
-let x = 
-*) 
+
+let x = 20 + 22
 
 (* 1b. Make it so that x1 equals 42.0, by casting x. *)
 (* Hint: Look in the OCaml documentation in the Pervasives chapter:
    http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html
    https://ocaml.org/releases/4.11/htmlman/libref/Stdlib.html
    and search for "float". *)
-(* 
-let x1 = (* Your code here. *)  
-*)
+
+let x1 = float_of_int 42
 
 (* 1c. Write a function that takes a string, and appends
  * " is my favourite programming language." to the end of it. *)
-(* 
-let favourizer (arg:string)  = (* Your code here *) 
-*)
+
+let favourizer (arg:string) = arg ^ " is my favourite programming language."
 
 (* call your favourizer, creating a complete string *)
-(*
-let myfavourite:string = ...
-*)
+
+let myfavourite:string = favourizer "php"
 
 (* 1d. Write a function that takes a number and returns
  * the difference between that number and 42.
  * Eg, if 'num' is 50, the result should be 8.
  * If 'num' is 30, the result should be -12 *)
-(* 
-let diff_42 num = (* Your code here *) 
-*)
+
+let diff_42 num = num - 42
 
 (* 1e. One more simple arithmetic example...
  * Write a function that returns the volume of a cylinder
  * with radius r, height h. (volume is pi * r^2 * h) *)
-(* 
+
 let pi = 4.0 *. atan 1.0
-let volume_cylinder (r:float) (h:float) : float = (* Your code here *) 
-*)
+let volume_cylinder (r:float) (h:float) : float = pi *. r**2.0 *. h
 
 (* 1f. Determine if an integer is even. Again use the Pervasives library. *)
-(* 
-let even (x: int) : bool = (* Your code here *)   
-*)
+
+let even (x: int) : bool = (x mod 2) = 0
 
 
 (* 1g. Write odd in terms of even *)
-(* 
-let odd (x: int) : bool = (* Your code here *)  
-*)
+
+let odd (x: int) : bool = not even x
 
 (* 1h. In addition to the Pervasives, OCaml comes pre-packaged with a
    standard library, that includes a lot of other utility functions that
@@ -64,15 +56,13 @@ let odd (x: int) : bool = (* Your code here *)
    Now... write a function that takes a String, and returns whether *
    or not that String is more than 10 characters long. *)
 
-(* 
-let gt_10_chars str : bool = (* Your code here. *) 
-*)
+let gt_10_chars str : bool = String.length str > 10
 
 
 (* 2. Compare the following two boolean values.  Why the difference? *)
-(* let why1 = (1.0 = 1.0) *)
-(* let why2 = (1.0 == 1.0) *)
-(* let because = ""  *)
+let why1 = (1.0 = 1.0)
+let why2 = (1.0 == 1.0)
+let because = "why2 is false because left side 1.0 and right side 1.0 are not dependent on each other; modifying one doesn't change the other one to be the same."
 
 (* Moral of the story : Don't use == unless you really know what
  * you're doing
@@ -82,20 +72,13 @@ let gt_10_chars str : bool = (* Your code here. *)
 (* 3. Compute the GCD for two integers using Euclid's recursion
  * https://en.wikipedia.org/wiki/Euclidean_algorithm *)
 
-(* 
-let gcd (x : int) (y : int) : int = 
-*)
-
-
+let rec gcd (x : int) (y : int) : int = if y = 0 then x else gcd y (x mod y)
 
 (* 4. Compute the McCarthy 91 function as shown in 
  * http://en.wikipedia.org/wiki/McCarthy_91_function
  *)
 
-(* 
-let mccarthy (x : int) : int = 
-*)
-
+let rec mccarthy (x : int) : int = if x > 100 then x - 10 else mccarthy (mccarthy (x + 11))
 
 
 

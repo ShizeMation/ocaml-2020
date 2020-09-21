@@ -34,3 +34,14 @@ Write a program that prints the numbers from 0 to 100, one per line.
                                  recursive function
 
 *)
+
+let fizzbuzz (n:int) : string = 
+  if n mod 3 = 0 then "Fizz"
+  else if n mod 5 = 0 then "Buzz"
+  else if n mod 15 = 0 then "FizzBuzz"
+  else string_of_int n
+
+let start_fizzbuzz () = 
+  for i = 0 to 100 do
+    print_endline (fizzbuzz i)
+  done
