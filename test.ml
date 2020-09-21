@@ -1,1 +1,1 @@
-print_newline "aju!";;
+print_string "aju!";;
