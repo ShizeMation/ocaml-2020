@@ -97,7 +97,7 @@ let rec prob2d (x : float) (y: int) : int -> char =
 (* Problem 3a. *)
 let prob3a = let x = 4.0 in
              let y = 3.9 in
-             (2 *. x) +. (3 *. y)
+             (2.0 *. x) +. (3.0 *. y)
 
 let exp3a : string = "Type conflict. x is an int and y is a float."
 
@@ -112,26 +112,24 @@ let prob3b : int =
   in
   exp 2 8;;
 
-let exp3b1 : string = ""
+let exp3b1 : string = "On line 111 we must add brackets around k-1 so it's evaluated as an argument for exp. Otherwise it will cause a stack overflow."
 
-let exp3b2 : string = ""
+let exp3b2 : string = "There's no other compile error..."
 
 
 (* Problem 4 *)
 (* Consider the following incomplete program *)
 
-(*
-let f (a:??) (b:??) : ?? =
+let f (a:string) (b:float) : bool = true
 
-let rec prob4 (x:??) (y:??) (z:??) : int =
+let rec prob4 (x:bool) (y:bool) (z:string) : int =
   prob4 (f z 3.14) (x || not y) (if x then "yes" else "no")
- *)
 
 (* Replace each ?? with the type of the corresponding expression, and
    write a function f that has the correct type signature. Explain in
    exp4 a problem that remains with the function prob4 *)
 
-let exp4 : string = ""
+let exp4 : string = "The function will stack overflow because it never returns."
 
 
 (* Problem 5 *)
@@ -141,3 +139,8 @@ let exp4 : string = ""
    checking whether or not the first and last letters are the same at
    each step. Hint: the String module used in Lab 1 will be useful here. *)
 
+let rec palin (s:string) : bool =
+   if String.length s <= 1 then true
+   else if String.length s = 2 && s.[0] = s.[1] then true
+   else if s.[0] = s.[String.length s - 1] then palin (String.sub s 1 (String.length s - 2))
+   else false
