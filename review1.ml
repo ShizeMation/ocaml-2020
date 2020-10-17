@@ -216,7 +216,7 @@
 
       let insert (d:'a dict) (k:key) (e:'a) =
          match !d with
-         | [] -> d := ref [(k, e)]
+         | [] -> d := [(k, e)]
          | (hk, he)::tail ->
             if k = hk then d := (hk, e)::tail
             else if k < hk then d := (k, e)::(hk, he)::tail
