@@ -214,16 +214,15 @@
 
       let make () : 'a dict = ref []
 
-      let insert (d_:'a dict) (k_:key) (e_:'a) =
-         let rec aux (d:'a dict) (k:key) (e:'a) =
-            match !d with
-            | [] -> d := [(k, e)]
-            | (hk, he)::tail ->
-               if k = hk then d := (hk, e)::tail
-               else if k < hk then d := (k, e)::(hk, he)::tail
-               else aux (ref tail) k e;
-               d := (hk, he)::(!d)
-         in aux d_ k_ e_
+      let insert (d:'a dict) (k:key) (e:'a) =
+         let rec aux (l:(key * 'a) list) : (key * 'a) list =
+            match l with
+            | [] -> [(k, e)]
+            | (hk, he)::t ->
+               if k = hk then (hk, e)::t
+               else if k < hk then (k, e)::l
+               else (hk, he)::(aux t)
+         in d := aux !d
 
       let lookup (d : 'a dict) (k : key) : 'a option =
          let rec aux (l:(key * 'a) list) : 'a option =
