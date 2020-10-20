@@ -1,3 +1,3 @@
 # ocaml-2020
 
-uottawa csi3120 labs
+uottawa csi3120 stuff
