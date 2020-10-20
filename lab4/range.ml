@@ -116,7 +116,7 @@ struct
     match (minmax x, minmax y) with
     | (None, _) -> None
     | (_, None) -> None
-    | (Some (x_min, x_max), Some (y_min, y_max)) ->
+    | (Some (x_min, x_max), Some (y_min, y_max)) -> x_max < y_min
 end
 
 (* TODO Exercise 1: Add some test code to test your new implementation. *)
