@@ -82,12 +82,9 @@ struct
       aux x
 
   let smult (x:t) (i:e) : t = 
-    let rec aux (l:t) : t =
-      match l with
-      | [] -> []
-      | head::tail -> (head * i)::(aux tail)
-    in
-      aux x
+    match minmax x with
+    | None -> []
+    | Some (x_min, x_max) -> build (x_min * i) (x_max * i)
 
   let bridge (x:t) (y:t) : t = 
     match (minmax x, minmax y) with
@@ -101,16 +98,11 @@ struct
     match minmax x with
     | None -> 0
     | Some (x_min, x_max) -> x_max - x_min + 1
-
+  
   let contains (x:t) (i:e) : bool =
-    let rec aux (l:t) : bool =
-      match l with
-      | [] -> false
-      | head::tail ->
-        if head = i then true
-        else aux tail
-    in
-    aux x
+    match minmax x with
+    | None -> false
+    | Some (x_min, x_max) -> i <= x_max && i >= x_min
     
   let rless (x:t) (y:t) : bool option =
     match (minmax x, minmax y) with
