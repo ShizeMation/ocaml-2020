@@ -107,7 +107,7 @@ struct
       match l with
       | [] -> false
       | head::tail ->
-        if head = e then true
+        if head = i then true
         else aux tail
     in
     aux x
