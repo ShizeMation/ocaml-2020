@@ -131,10 +131,89 @@ let _ = ListRange.rless (ListRange.range 10 24) (ListRange.range 7 9)
 let _ = ListRange.rless (ListRange.range 6 8) (ListRange.range 3 12)
 
 (* Exercise 2: Design an imperative version of RANGE.  Do so by
-copying range.mli here and changing the types as necessary.  And
-   then copy the implementation of LoHiPairRange and modify the code
-   as necessary.  All the operations should remain the same as in the
-   functional version.  The singleton and range operations should each
-   create a new range.  The sadd and smult operations should modify
-   existing ranges. Consider the design choices and design your own
-   version of bridge. *)
+  copying range.mli here and changing the types as necessary.  And
+  then copy the implementation of LoHiPairRange and modify the code
+  as necessary.  All the operations should remain the same as in the
+  functional version.  The singleton and range operations should each
+  create a new range.  The sadd and smult operations should modify
+  existing ranges. Consider the design choices and design your own
+  version of bridge. *)
+
+  module type RANGE =
+  sig
+    (* types *)
+    (* RANGE type *)
+    type t
+    (* element type *)
+    type e
+      
+    (* constructors *)
+    (* construct a one-item range *)
+    val singleton : e -> t
+    (* construct a range with two endpoints, inclusive *)
+    val range : e -> e -> t
+  
+    (* modifiers *)
+    (* scalar add range, e.g. if r is a range from -4 through 6, 
+       sadd r 1 produces a range from  -3 through 7. 
+       This operation does not change the size of a range. *)
+    val sadd : t -> e -> unit
+    (* scalar multiply range, e.g. if r is a range from 2 through 4,
+       smult r 3 produces a range from 6 through 12. 
+       This operation may change the size of a range. *)                        
+    val smult : t -> e -> unit
+    (* create a new range that spans both given ranges, e.g.
+       if given a range from -4 through 6 and a range from 10 through 12, 
+       produces a range from -4 through 12. *)
+    val bridge : t -> t -> unit
+  
+    (* observers *)
+    (* how many elements are in the range? *)
+    val size : t -> int
+    (* does t contain e? *)
+    val contains : t -> e -> bool
+    (* is an arbitrary element of the first range 
+        less than an arbitrary element of the second range?
+       if the ranges overlap, return None, because 
+        answers differ depending on the element chosen
+       otherwise return whether the first range's max < second range's min
+     *)
+    val rless : t -> t -> bool option
+        
+  end
+
+  module LoHiPairRange : RANGE with type e = int =
+  struct
+    type e = int
+    type t = (e * e) ref
+
+    let singleton (i:e) : t = ref (i,i)
+    let range (i:e) (j:e) : t = ref ((min i j), (max i j))
+
+    let sadd (x:t) (i:e) = let (lo,hi) = !x in x := (lo+i,hi+i)
+
+    let smult (x:t) (i:e) =
+      let (lo, hi) = !x in
+      if i >= 0 then x := (lo*i,hi*i)
+      else x := (hi*i,lo*i)
+      
+    let bridge (x:t) (y:t) =
+      let (lx, hx) = !x in
+      let (ly, hy) = !y in
+      x := ((min lx ly), (max hx hy))
+
+    let size (x:t) : int =
+      let (lo,hi) = x in
+      hi - lo - (-1)
+
+    let contains (x:t) (i:e) : bool =
+      let (lo,hi) = x in
+      (lo <= i) && (i <= hi)
+
+    let rless (x:t) (y:t) : bool option =
+      let (lx, hx) = x in
+      let (ly, hy) = y in
+      if hx < ly then Some true
+      else if hy < lx then Some false
+      else None
+  end
