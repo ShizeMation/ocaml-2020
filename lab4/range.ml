@@ -84,7 +84,9 @@ struct
   let smult (x:t) (i:e) : t = 
     match minmax x with
     | None -> []
-    | Some (x_min, x_max) -> build (x_min * i) (x_max * i)
+    | Some (x_min, x_max) ->
+      if i < 0 then build (x_max * i) (x_min * i)
+      else build (x_min * i) (x_max * i)
 
   let bridge (x:t) (y:t) : t = 
     match (minmax x, minmax y) with
