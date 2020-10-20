@@ -110,7 +110,10 @@ struct
     match (minmax x, minmax y) with
     | (None, _) -> None
     | (_, None) -> None
-    | (Some (x_min, x_max), Some (y_min, y_max)) -> Some (x_max < y_min)
+    | (Some (x_min, x_max), Some (y_min, y_max)) ->
+      if x_max < y_min then Some true
+      else if y_max < x_min then Some false
+      else None
 end
 
 (* TODO Exercise 1: Add some test code to test your new implementation. *)
@@ -203,16 +206,16 @@ let _ = ListRange.rless (ListRange.range 6 8) (ListRange.range 3 12)
       x := ((min lx ly), (max hx hy))
 
     let size (x:t) : int =
-      let (lo,hi) = x in
+      let (lo,hi) = !x in
       hi - lo - (-1)
 
     let contains (x:t) (i:e) : bool =
-      let (lo,hi) = x in
+      let (lo,hi) = !x in
       (lo <= i) && (i <= hi)
 
     let rless (x:t) (y:t) : bool option =
-      let (lx, hx) = x in
-      let (ly, hy) = y in
+      let (lx, hx) = !x in
+      let (ly, hy) = !y in
       if hx < ly then Some true
       else if hy < lx then Some false
       else None
