@@ -200,6 +200,12 @@ let _ = ListRange.rless (ListRange.range 6 8) (ListRange.range 3 12)
       if i >= 0 then x := (lo*i,hi*i)
       else x := (hi*i,lo*i)
       
+    (*
+      This new imperative bridge function works differently.
+      It sets the first range parameter x to be the outputted range.
+      You could say that it 'bridges' or 'extends' x using y, so the function changes x.
+    *)
+    
     let bridge (x:t) (y:t) =
       let (lx, hx) = !x in
       let (ly, hy) = !y in
