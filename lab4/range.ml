@@ -113,20 +113,20 @@ end
 
 (* TODO Exercise 1: Add some test code to test your new implementation. *)
 
-let _ = ListRange.sadd (range 4 8) 3
-let _ = ListRange.sadd (range 4 8) -3
-let _ = ListRange.smult (range 4 8) 3
-let _ = ListRange.smult (range 4 8) -3
-let _ = ListRange.bridge (range 4 8) (range -5 6)
-let _ = ListRange.bridge (range 10 24) (range 7 9)
-let _ = ListRange.bridge (range 6 8) (range 3 12)
-let _ = ListRange.size (range 4 8) (* 5 *)
-let _ = ListRange.size (range -4 8) (* 13 *)
-let _ = ListRange.contains (range 4 8) 5 (* true *)
-let _ = ListRange.contains (range 4 8) -1 
-let _ = ListRange.rless (range -4 -8) (range 10 24) (* true *)
-let _ = ListRange.rless (range 10 24) (range 7 9)
-let _ = ListRange.rless (range 6 8) (range 3 12)
+let _ = ListRange.sadd (ListRange.range 4 8) 3
+let _ = ListRange.sadd (ListRange.range 4 8) -3
+let _ = ListRange.smult (ListRange.range 4 8) 3
+let _ = ListRange.smult (ListRange.range 4 8) -3
+let _ = ListRange.bridge (ListRange.range 4 8) (ListRange.range -5 6)
+let _ = ListRange.bridge (ListRange.range 10 24) (ListRange.range 7 9)
+let _ = ListRange.bridge (ListRange.range 6 8) (ListRange.range 3 12)
+let _ = ListRange.size (ListRange.range 4 8) (* 5 *)
+let _ = ListRange.size (ListRange.range -4 8) (* 13 *)
+let _ = ListRange.contains (ListRange.range 4 8) 5 (* true *)
+let _ = ListRange.contains (ListRange.range 4 8) -1 
+let _ = ListRange.rless (ListRange.range -4 -8) (ListRange.range 10 24) (* true *)
+let _ = ListRange.rless (ListRange.range 10 24) (ListRange.range 7 9)
+let _ = ListRange.rless (ListRange.range 6 8) (ListRange.range 3 12)
 
 (* Exercise 2: Design an imperative version of RANGE.  Do so by
 copying range.mli here and changing the types as necessary.  And
